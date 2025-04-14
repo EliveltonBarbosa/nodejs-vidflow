@@ -3,11 +3,11 @@ const containerVideos = document.querySelector(".videos__container");
 
 async function buscarEMostrarVideos(){
     try{
-        const busca = await fetch("http://localhost:3000/videos");
+        const busca = await fetch("http://localhost:3030/videos");
         const videos = await busca.json();
 
             videos.forEach((video)=> {
-                if(video.categoria == ""){
+                if(video.categoria === ""){
                     throw new Error('Vídeo não tem categoria');
                 }
                 containerVideos.innerHTML += `
@@ -38,7 +38,7 @@ barraDePesquisa.addEventListener("input", filtrarPesquisa);
 function filtrarPesquisa(){
     const videos = document.querySelectorAll(".videos__item");
 
-    if(barraDePesquisa.value != ""){
+    if(barraDePesquisa.value !== ""){
         for(let video of videos){
             let titulo = video.querySelector(".titulo-video").textContent.toLowerCase();
             let valorFiltro = barraDePesquisa.value.toLowerCase();
@@ -70,7 +70,7 @@ function filtrarPorCategoria(filtro){
         let categoria = video.querySelector(".categoria").textContent.toLowerCase();
         let valorFiltro = filtro.toLowerCase();
 
-        if(!categoria.includes(valorFiltro) && valorFiltro != 'tudo'){
+        if(!categoria.includes(valorFiltro) && valorFiltro !== 'tudo'){
             video.style.display = "none";
         } else {
             video.style.display = "block";
